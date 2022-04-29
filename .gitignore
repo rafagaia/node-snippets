@@ -4,5 +4,3 @@ node_modules/
 typings/
 coverage/
 test/typescript/axios.js
-package-lock.json
-
