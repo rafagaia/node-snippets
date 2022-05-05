@@ -15,6 +15,17 @@ const friends = [
     }
 ];
 
+//Middleware:
+app.use((req, res, next) => {
+    const start = Date.now();
+    //pass request to correct handler:
+    next();
+    //Route handler returns flow of execution back here
+    const delta = Date.now() - start;
+    console.log(`${req.method}  ${req.url}  ${delta}ms\n`);
+});
+
+
 //Routes:
 app.get('/', (req, res) => {
     res.send({
