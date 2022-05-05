@@ -1,21 +1,17 @@
 const express = require('express');
 
+const friendsController = require('./controllers/friends.controller');
+const messagesController = require('./controllers/messages.controller');
+
 const app = express();
 
 const PORT = 3000;
 
-const friends = [
-    {
-        id: 0,
-        name: 'D Brane'
-    },
-    {
-        id: 1,
-        name: 'Einstein'
-    }
-];
+/*
+* Middleware:
+*/
 
-//Middleware:
+//Time logging:
 app.use((req, res, next) => {
     const start = Date.now();
     //pass request to correct handler:
@@ -25,8 +21,15 @@ app.use((req, res, next) => {
     console.log(`${req.method}  ${req.url}  ${delta}ms\n`);
 });
 
+//Set body to JSON when content-type is json:
+app.use(express.json());
 
-//Routes:
+
+/*
+* Routes:
+*/
+
+//default route
 app.get('/', (req, res) => {
     res.send({
         id: 42,
@@ -34,36 +37,17 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/friends', (req, res) => {
-    res.json(friends);
-});
+//messages:
+app.get('/messages', messagesController.getMessages);
+app.post('/messages', messagesController.postMessage);
 
-//GET /friends/21
-app.get('/friends/:id', (req, res) => {
-    const friendId = Number(req.params.id); //or +req.params.id;
-    const friend = friends[friendId];
-    if (friend) {
-        res.status(200).json(friend);
-    } else {
-        res.status(404).json({
-            error: "Friend does not exist"
-        });
-    }
-});
-
-app.get('/messages', (req, res) => {
-    res.send('<h1>YOYO TETHERRR</h1>')
-});
-
-app.post('/messages', (req, res) => {
-    console.log('POST Message');
-    res.send('send it');
-});
+//friends:
+app.get('/friends', friendsController.getFriends);
+app.get('/friend/:id', friendsController.getFriendById);
+app.post('/friend', friendsController.postFriend);
 
 
-
-
-
+//Listener:
 app.listen(PORT, () => {
     console.log(`Server Listening on port ${PORT}...`);
 });
