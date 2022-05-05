@@ -1,7 +1,8 @@
 const express = require('express');
 
-const friendsController = require('./controllers/friends.controller');
-const messagesController = require('./controllers/messages.controller');
+const messagesRouter = require('./routes/messages.router');
+const friendsRouter = require('./routes/friends.router');
+
 
 const app = express();
 
@@ -18,17 +19,15 @@ app.use((req, res, next) => {
     next();
     //Route handler returns flow of execution back here
     const delta = Date.now() - start;
-    console.log(`${req.method}  ${req.url}  ${delta}ms\n`);
+    console.log(`${req.method}  ${req.baseUrl}${req.url}  ${delta}ms`);
 });
 
 //Set body to JSON when content-type is json:
 app.use(express.json());
 
-
 /*
 * Routes:
 */
-
 //default route
 app.get('/', (req, res) => {
     res.send({
@@ -37,14 +36,12 @@ app.get('/', (req, res) => {
     });
 });
 
-//messages:
-app.get('/messages', messagesController.getMessages);
-app.post('/messages', messagesController.postMessage);
+//Mount messagesRouter on app object:
+app.use('/messages', messagesRouter);
+//Mount friendsRouter on app object:
+app.use('/friends', friendsRouter);
 
-//friends:
-app.get('/friends', friendsController.getFriends);
-app.get('/friend/:id', friendsController.getFriendById);
-app.post('/friend', friendsController.postFriend);
+
 
 
 //Listener:
