@@ -7,6 +7,11 @@ const friendsRouter = require('./routes/friends.router');
 
 const app = express();
 
+//Load handlebars templating engine internally
+app.set('view engine', 'hbs');
+//find our templates in project folder:
+app.set('views', path.join(__dirname, 'views'));
+
 const PORT = 3000;
 
 /*
@@ -27,6 +32,7 @@ app.use((req, res, next) => {
 
 //Not RESTful:
 // Better to use a CDN to serve static files
+//Mount static files under /site path
 app.use('/site', express.static(path.join(__dirname, 'public')));
 
 //Set body to JSON when content-type is json:
@@ -41,9 +47,9 @@ app.use(express.json());
 */
 //default route
 app.get('/', (req, res) => {
-    res.send({
-        id: 42,
-        name: 'Life Answerr'
+    res.render('index', {
+        title: 'Clever handlebars',
+        caption: 'What a Caption, go Skiing'
     });
 });
 
@@ -51,6 +57,8 @@ app.get('/', (req, res) => {
 app.use('/messages', messagesRouter);
 //Mount friendsRouter on app object:
 app.use('/friends', friendsRouter);
+
+
 
 /*
 * Listener:
