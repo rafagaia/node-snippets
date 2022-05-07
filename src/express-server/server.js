@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 const messagesRouter = require('./routes/messages.router');
 const friendsRouter = require('./routes/friends.router');
@@ -23,6 +24,10 @@ app.use((req, res, next) => {
     const delta = Date.now() - start;
     console.log(`${req.method}  ${req.baseUrl}${req.url}  ${delta}ms`);
 });
+
+//Not RESTful:
+// Better to use a CDN to serve static files
+app.use('/site', express.static(path.join(__dirname, 'public')));
 
 //Set body to JSON when content-type is json:
 //If at some point we have a mounted Router that does not use JSON,
