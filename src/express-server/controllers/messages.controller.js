@@ -1,7 +1,10 @@
 const path = require('path');
 
 function getMessages(req, res) {
-   res.send('<h1>YOYO TETHERRR</h1>')
+   res.render('messages', {
+       title: 'Message to a Friend',
+       friend: 'Rafa'
+   });
 }
 
 function postMessage(req, res) {
