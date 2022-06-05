@@ -33,23 +33,6 @@ readStream
         }));
     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ---------------------------------------------
 Snippet from CSV Parse - Stream API website:
 
@@ -82,21 +65,3 @@ parser.on('error', (err) => {
 parser.end();
 
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
