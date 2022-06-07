@@ -1,5 +1,7 @@
-Learning some Nodejs in order to implement a portfolio project that integrates
-with NASA, SpaceX and Twitter APIs... and more
+
+![Project+Architectural+Diagram](https://user-images.githubusercontent.com/13786669/172480955-977ed838-7f0a-4256-8113-3b710da965ce.png)
 
 
-... Some snippets from ZTM NodeJS 2022 Developer ... [em progresso]
+
+
+... and some nodejs snippets ... [em progresso]
