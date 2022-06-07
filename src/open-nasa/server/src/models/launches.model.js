@@ -7,7 +7,7 @@ const launch = {
     mission: 'Kepler Explorer Y',  //defined by client
     rocket: 'Rocket Tea',   //defined by client
     launchDate: new Date('October 14, 2042'), //defined by client
-    destination: 'Kepler-442 b', //defined by client
+    target: 'Kepler-442 b', //defined by client
     customer: ['NODE','NASA'], //defined by server
     upcoming: true, //defined by server
     success: true //defined by server
@@ -21,7 +21,7 @@ function getAllLaunches() {
     return Array.from(launches.values());
 }
 
-function addNewLaunch(launch, test) {
+function addNewLaunch(launch) {
     latestFlightNumber++;
     launches.set(
         latestFlightNumber,

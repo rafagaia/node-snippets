@@ -6,22 +6,22 @@ const morgan = require('morgan');
 const planetsRouter = require('./routes/planets/planets.router');
 const launchesRouter = require('./routes/launches/launches.router');
 
-const app = express();
+const api = express();
 
 
-app.use(cors({
+api.use(cors({
     origin: 'http://localhost:3000',
 }));
-app.use(morgan('combined'));
+api.use(morgan('combined'));
 
-app.use(express.json());
+api.use(express.json());
 //Serve Client (React) Static build (from server/public)
-app.use(express.static(path.join(__dirname, '..', 'public')));
+api.use(express.static(path.join(__dirname, '..', 'public')));
 
-app.use('/planets', planetsRouter);
-app.use('/launches', launchesRouter);
-app.get('/*', (req, res) => {
+api.use('/planets', planetsRouter);
+api.use('/launches', launchesRouter);
+api.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
-module.exports = app;
+module.exports = api;
