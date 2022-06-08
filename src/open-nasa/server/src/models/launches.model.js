@@ -8,7 +8,7 @@ const launch = {
     rocket: 'Rocket Tea',   //defined by client
     launchDate: new Date('October 14, 2042'), //defined by client
     target: 'Kepler-442 b', //defined by client
-    customer: ['NODE','NASA'], //defined by server
+    customers: ['NODE','NASA'], //defined by server
     upcoming: true, //defined by server
     success: true //defined by server
 }
@@ -28,7 +28,7 @@ function addNewLaunch(launch) {
         Object.assign(launch, {
             success: true,
             upcoming: true,
-            customer: ['RAF', 'NASA'],
+            customers: ['RAF', 'NASA'],
             flightNumber: latestFlightNumber,
         })
     );

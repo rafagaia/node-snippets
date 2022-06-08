@@ -12,9 +12,8 @@ const httpServer = http.createServer(apiServer);
 
 const PORT = process.env.PORT || 8000;
 
-const MONGO_URL = "mongodb+srv://nasa-api:5WdqabrSBYhslQ96@nasacluster.cutrt.mongodb.net/?retryWrites=true&w=majority";
+const MONGO_URL = process.env.MONGO_URL;
 
-console.log(`MONGO_URL: ${MONGO_URL}`);
 //mongoose event emitter that emits events when connection is ready or when there's errors
 //since only triggered once, can use 'once' instead of 'on', so that event only triggers callback once.
 mongoose.connection.once('open', () => {
