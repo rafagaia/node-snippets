@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 //third party libs
 const { parse } = require('csv-parse');
-const planetsRouter = require('../routes/planets/planets.router');
 
 
 function isHabitablePlanet(planet) {
