@@ -3,7 +3,7 @@ const planetsDB = require('./planets.mongo');
 
 const launches = new Map();
 
-let latestFlightNumber = 42;
+const DEFAULT_FLIGHT_NUMBER = 30;
 
 const launch = {
     flightNumber: 42, //defined by server/db
@@ -23,12 +23,25 @@ const launch = {
 
 saveLaunch(launch);
 
+async function getLatestFlightNumber() {
+    const latestLaunch = await launchesDB
+        .findOne()
+        .sort('-flightNumber'); //by default, sorts from lowest to highest. the '-' reverses that option.
+    
+    if (!latestLaunch) {
+        return DEFAULT_FLIGHT_NUMBER;
+    }
+    
+    return latestLaunch.flightNumber;
+}
+
 async function getAllLaunches() {
     return await launchesDB
         .find({}, { '_id': 0, '__v': 0 });
 }
 
 async function saveLaunch(launch) {
+    //since we can't associate Documents (as with SQL FK)
     const planet = await planetsDB.findOne({
         keplerName: launch.target
     });
