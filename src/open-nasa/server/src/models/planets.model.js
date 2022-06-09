@@ -44,8 +44,8 @@ function loadPlanetsData() {
             reject(err);
         })
         .on('end', async () => {
-            const countPlanetsFound = (await getAllPlanets()).length;
-            console.log(`${countPlanetsFound} habitable planets found.\n`);
+            const planetsFound = await getAllPlanets();
+            console.log(`${planetsFound.length} habitable planets found.\n`);
             resolve();
         });
     });
@@ -53,7 +53,9 @@ function loadPlanetsData() {
     //func1------
 
 async function getAllPlanets() {
-    return await planets.find({});
+    return await planets.find({}, {
+        '__v': 0, '_id': 0 
+    });
 }
 
 async function savePlanet(planet) {

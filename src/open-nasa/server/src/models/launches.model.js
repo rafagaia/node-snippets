@@ -1,4 +1,4 @@
-//const launches = require('./launches.mongo');
+const launchesDB = require('./launches.mongo');
 
 const launches = new Map();
 
@@ -14,13 +14,21 @@ const launch = {
     upcoming: true, //defined by server
     success: true //defined by server
 }
-
-launches.set(launch.flightNumber, launch);
+// when we were  using map: launches.set(launch.flightNumber, launch);
 //launches.get(42) === launch
 
+saveLaunch(launch);
 
 function getAllLaunches() {
     return Array.from(launches.values());
+}
+
+async function saveLaunch(launch) {
+    await launchesDB.updateOne({
+        flightNumber: launch.flightNumber //how we're finding if this launch already exists in DB
+    }, launch, {
+        upsert: true
+    });
 }
 
 function addNewLaunch(launch) {
