@@ -16,11 +16,15 @@ const launch = {
 }
 // when we were  using map: launches.set(launch.flightNumber, launch);
 //launches.get(42) === launch
+// function getAllLaunches() {
+//     return Array.from(launches.values());
+// }
 
 saveLaunch(launch);
 
-function getAllLaunches() {
-    return Array.from(launches.values());
+async function getAllLaunches() {
+    return await launchesDB
+        .find({}, { '_id': 0, '__v': 0 });
 }
 
 async function saveLaunch(launch) {
