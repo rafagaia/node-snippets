@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 const http = require('http');
 const { mongoConnect } = require('./services/mongo');
 //const io = require("socket.io");
