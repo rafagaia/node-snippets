@@ -57,6 +57,25 @@ async function saveLaunch(launch) {
     });
 }
 
+async function scheduleNewLaunch(launch) {
+    const newFlightNumber = await getLatestFlightNumber() + 1;
+    const newLaunch = Object.assign(launch, {
+        flightNumber: newFlightNumber,
+        success: true,
+        upcoming: true,
+        customers: ['RAF', 'NASA'],
+    });
+
+    await saveLaunch(newLaunch);
+}
+
+module.exports = {
+    getAllLaunches,
+    scheduleNewLaunch,
+}
+
+
+/* Uses Map instead of Mongo
 function addNewLaunch(launch) {
     latestFlightNumber++;
     launches.set(
@@ -69,8 +88,4 @@ function addNewLaunch(launch) {
         })
     );
 }
-
-module.exports = {
-    getAllLaunches,
-    addNewLaunch,
-}
+*/
