@@ -1,4 +1,5 @@
 const launchesDB = require('./launches.mongo');
+const planetsDB = require('./planets.mongo');
 
 const launches = new Map();
 
@@ -28,6 +29,14 @@ async function getAllLaunches() {
 }
 
 async function saveLaunch(launch) {
+    const planet = await planetsDB.findOne({
+        keplerName: launch.target
+    });
+
+    if (!planet) {
+        throw new Error('No Matching Planet was found.');
+    }
+
     await launchesDB.updateOne({
         flightNumber: launch.flightNumber //how we're finding if this launch already exists in DB
     }, launch, {
