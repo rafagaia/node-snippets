@@ -1,7 +1,8 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-const MONGO_URL = process.env.MONGO_URL;
+const MONGO_URL = "mongodb+srv://nasa-api:5WdqabrSBYhslQ96@nasacluster.cutrt.mongodb.net/?retryWrites=true&w=majority";
+//process.env.MONGO_URL;
 
 //mongoose event emitter that emits events when connection is ready or when there's errors
 //since only triggered once, can use 'once' instead of 'on', so that event only triggers callback once.
@@ -14,14 +15,21 @@ mongoose.connection.on('error', (err) => {
 });
 
 async function mongoConnect() {
-    await mongoose.connect(MONGO_URL); /*, {
-        useNewUrlParser: true, //determines how mongoose parses URL string
-        useFindAndModify: false, //disables outdated way of updating mongo data
-        useCreateIndex: true, //uses create index way instead on old ensure index
-        useUnifiedTopology: true //mongoose will use updated way of talking to clusters of mongo databases
-    }*/ //commented out because we're using Mongoose version higher than 6.
+    await mongoose.connect(MONGO_URL);
+}
+/*, {
+    useNewUrlParser: true, //determines how mongoose parses URL string
+    useFindAndModify: false, //disables outdated way of updating mongo data
+    useCreateIndex: true, //uses create index way instead on old ensure index
+    useUnifiedTopology: true //mongoose will use updated way of talking to clusters of mongo databases
+}*/ //commented out because we're using Mongoose version higher than 6.
+
+
+async function mongoDisconnect() {
+    await mongoose.disconnect();
 }
 
 module.exports =  {
     mongoConnect,
+    mongoDisconnect,
 };
