@@ -1,7 +1,10 @@
 const {
     scheduleNewLaunch,
-    getAllLaunches 
+    getAllLaunches,
+    abortLaunchById,
+    existsLaunchWithId
 } = require('../../models/launches.model');
+const { exists } = require('../../models/launches.mongo');
 
 async function httpGetAllLaunches(req, res) {
     return res.status(200).json(await getAllLaunches());
@@ -31,8 +34,31 @@ async function httpAddNewLaunch(req, res) {
     return res.status(201).json(launch);
 }
 
+async function httpAbortLaunch(req, res) {
+    const launchId = Number(req.params.id);
+
+    const existsLaunch = await existsLaunchWithId(launchId);
+    if (!existsLaunch) {
+        return res.status(404).json({
+            error: 'Launch not found'
+        });
+    }
+
+    const aborted = await abortLaunchById(launchId);
+    if (!aborted) {
+        return res.status(400).json({
+            error: 'Launch not aborted.',
+            ok: false
+        })
+    }
+    return res.status(200).json({
+        ok: true,
+    });
+}
+
 
 module.exports = {
     httpGetAllLaunches,
     httpAddNewLaunch,
+    httpAbortLaunch
 }
