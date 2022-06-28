@@ -1,5 +1,6 @@
 const express = require('express');
 
+
 const app = express();
 
 
@@ -22,11 +23,11 @@ app.get('/', (req, res) => {
 app.get('/timer', (req, res) => {
     //delay the response
     delay(7000);
-    res.send('Bling bling bling');
+    res.send(`Bling bling bling ${process.pid}`);
 }); 
 
 
-console.log('Worker process started.');
+
 app.listen(3000, () => {
-    console.log(`Server is listening on PORT: 3000...`);
+    console.log(`Worker Server is listening on PORT: 3000...`);
 });
