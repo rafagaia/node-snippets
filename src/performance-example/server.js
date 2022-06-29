@@ -1,5 +1,5 @@
 const express = require('express');
-
+//const cluster = require('cluster');
 
 const app = express();
 
@@ -26,6 +26,14 @@ app.get('/timer', (req, res) => {
     res.send(`Bling bling bling ${process.pid}`);
 }); 
 
+// if (cluster.isMaster) {
+//      console.log('Master has been started');
+//     cluster.fork;
+//     cluster.fork;
+// } else {
+//      console.log('worker process started);
+//     app.listen(3000, () => {});
+// }
 
 
 app.listen(3000, () => {
