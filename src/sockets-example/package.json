@@ -1,0 +1,16 @@
+{
+  "name": "sockets-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sockets.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^4.5.1",
+    "socket.io-stream": "^0.9.1"
+  }
+}
