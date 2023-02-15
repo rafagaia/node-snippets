@@ -1,0 +1,12 @@
+class Semojis {
+    constructor() {
+
+    }
+
+
+
+
+    emojiToText() {
+        
+    }
+}
