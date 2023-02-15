@@ -50,6 +50,11 @@ async function populateLaunches() {
         }
     });
 
+    if (response.status !== 200) {
+        console.log('...Problem downloading launch data.');
+        throw new Error('Launch data download failed.');
+    }
+
     const launchDocs = response.data.docs;
     for (const launchDoc of launchDocs) {
         const payloads = launchDoc['payloads'];
@@ -66,7 +71,7 @@ async function populateLaunches() {
             customers,
         }
         console.log(`${launch.flightNumber} ${launch.mission} ${launch.launchDate}`);
-        // @TODO: populate launches collection...
+        await saveLaunch(launch);
     }
 }
 
@@ -106,6 +111,14 @@ async function getAllLaunches() {
 }
 
 async function saveLaunch(launch) {
+    await launchesDB.findOneAndUpdate({
+        flightNumber: launch.flightNumber //how we're finding if this launch already exists in DB
+    }, launch, {
+        upsert: true
+    });
+}
+
+async function scheduleNewLaunch(launch) {
     //since we can't associate Documents (as with SQL FK)
     const planet = await planetsDB.findOne({
         keplerName: launch.target
@@ -115,14 +128,6 @@ async function saveLaunch(launch) {
         throw new Error('No Matching Planet was found.');
     }
 
-    await launchesDB.findOneAndUpdate({
-        flightNumber: launch.flightNumber //how we're finding if this launch already exists in DB
-    }, launch, {
-        upsert: true
-    });
-}
-
-async function scheduleNewLaunch(launch) {
     const newFlightNumber = await getLatestFlightNumber() + 1;
     const newLaunch = Object.assign(launch, {
         flightNumber: newFlightNumber,
