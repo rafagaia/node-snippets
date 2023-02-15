@@ -9,24 +9,6 @@ const DEFAULT_FLIGHT_NUMBER = 42;
 const SPACEX_API_URL = 'https://api.spacexdata.com/v4/launches/query';
 
 
-// const launch = {
-//     flightNumber: 42, //defined by server/db
-//     mission: 'Kepler Explorer Y',  //defined by client
-//     rocket: 'Rocket Tea',   //defined by client
-//     launchDate: new Date('October 14, 2042'), //defined by client
-//     target: 'Kepler-442 b', //defined by client
-//     customers: ['NODE','NASA'], //defined by server
-//     upcoming: true, //defined by server
-//     success: true //defined by server
-// }
-// when we were  using map: launches.set(launch.flightNumber, launch);
-//launches.get(42) === launch
-// function getAllLaunches() {
-//     return Array.from(launches.values());
-// }
-
-//saveLaunch(launch);
-
 async function populateLaunches() {
     console.log("Downloading launch data from SpaceXAPI...");
     const response = await axios.post(SPACEX_API_URL, {
@@ -108,6 +90,7 @@ async function getLatestFlightNumber() {
 async function getAllLaunches(skip, limit) {
     return await launchesDB
         .find({}, { '_id': 0, '__v': 0 })
+        .sort({ flightNumber: 1 })
         .skip(skip)
         .limit(limit);
 }
