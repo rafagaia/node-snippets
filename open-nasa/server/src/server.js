@@ -1,14 +1,10 @@
 require('dotenv').config();
 const http = require('http');
 const { mongoConnect } = require('./services/mongo');
-//const io = require("socket.io");
 
 
-const apiServer = require('./api');
-const httpServer = http.createServer(apiServer);
-//const socketServer = io(httpServer);
-
-//const sockets = require('./sockets');
+const app = require('./app');
+const httpServer = http.createServer(app);
 
 const PORT = process.env.PORT || 8000;
 

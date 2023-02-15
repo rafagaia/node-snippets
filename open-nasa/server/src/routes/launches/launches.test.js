@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../../api');
+const app = require('../../app');
 const { 
     mongoConnect,
     mongoDisconnect
