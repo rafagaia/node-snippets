@@ -32,6 +32,7 @@ process.on('beforeExit', (code) => {
     console.log('Process beforeExit event with code: ', code);
 });
 
-
+console.log("\nEmit event race/Win:\n");
 celebrity.emit('race', 'win');
+console.log("\nEmit event race/lost:\n");
 celebrity.emit('race', 'lost');

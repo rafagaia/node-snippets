@@ -3,7 +3,7 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
-const api = require('./routes/api')
+const api = require('./routes/api');
 
 
 const app = express();
